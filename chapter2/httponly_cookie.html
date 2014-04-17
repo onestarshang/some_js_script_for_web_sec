@@ -24,6 +24,8 @@ function makeRequest(){
 	function parseCookies(){
 		var cookie_dict = {};
 		if (xhr.readyState === 4 && xhr.status === 400){
+			alert(xhr.responseText);
+
 			var content = xhr.responseText.replace(/\r|\n/g, '').match(/<pre>(.+)<\/pre>/);
 
 			if (content.length){

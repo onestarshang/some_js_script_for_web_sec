@@ -1,0 +1,14 @@
+<html>
+<body>
+<script type="text/javascript">
+var _eval = eval;
+eval = function(x){
+	if(typeof(x) == 'undefined'){return ;}
+	alert(x); //在这之前可以任意写代码
+	_eval(x);
+
+};
+eval('alert(1)');
+</script>
+</body>
+</html>
