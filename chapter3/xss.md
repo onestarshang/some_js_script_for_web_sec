@@ -8,7 +8,6 @@ xss代码出现在url中，作为输入提交到服务端，服务端解析后�
 ####dom xss：
 DOM xss不需要服务器解析相应的直接参与，触发xss靠的hi浏览器短的DOM解析。
 
-DOM 输入点：
 
 ####常见的输入点：
     document.URL
