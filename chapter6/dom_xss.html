@@ -1,0 +1,42 @@
+<html>
+
+
+<body>
+
+<script type="text/javascript">
+/*
+
+javascript 自解码机制。
+
+
+*/
+function HtmlEncode(str){
+	var s = "";
+	if(str.length == 0) return "";
+	s = str.replace(/&/g, "&amp;");
+	s = s.replace(/</g, "&lt;");
+	s = s.replace(/>/g, "&gt;");
+	s = s.replace(/\"/g, "&quot;");
+
+
+	alert(s);
+	return s;
+}
+
+
+</script>
+<h3>test 1</h3>
+<input type="button" id="exec_btn" value="exec" onclick="document.write('<img src=@ onerror=alert(123) />')" />
+
+<h3>test 2</h3>
+<!--在Javascript脚本执行之前，html形式的编码会自动解码。-->
+<input type="button" id="exec_btn" value="exec" onclick="document.write(HtmlEncode('<img src=@ onerror=alert(123) />'))" />
+
+
+<h3>test 3</h3>
+<input type="button" id="exec_btn" value="exec" onclick="document.write('&lt;img src=@ onerror=alert(123) /&gt;')" />
+
+</body>
+
+
+</html>
